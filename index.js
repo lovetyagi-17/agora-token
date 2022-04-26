@@ -16,6 +16,10 @@ const nocache = (req, resp, next) => {
     next();
 }
 
+const welcomeMessage = (req, resp) => {
+    return resp.status(500).json({ 'message': 'Welcome, Hola..' });
+}
+
 const genrateAccessToken = (req, resp) => {
     // set response header
     resp.header('Access-Control-Allow-Origin', '*');
@@ -48,6 +52,7 @@ const genrateAccessToken = (req, resp) => {
     return resp.json({ 'token': token });
 }
 
+app.get('/', welcomeMessage)
 app.get('/access_token', nocache, genrateAccessToken);
 
 app.listen( PORT, () => {
